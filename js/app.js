@@ -31,29 +31,29 @@ product.allImages =[];
 
 
 
-new product('bag','../images/bag.jpg');//[0]
-new product('banana','../images/banana.jpg');//[0]
-new product('bathroom','../images/bathroom.jpg');//[0]
-new product('boots','../images/boots.jpg');//[0]
-new product('breakfast','../images/breakfast.jpg');//[0]
+new product('bag','../images/bag.jpg');
+new product('banana','../images/banana.jpg');
+new product('bathroom','../images/bathroom.jpg');
+new product('boots','../images/boots.jpg');
+new product('breakfast','../images/breakfast.jpg');
 
-new product('bubblegum','../images/bubblegum.jpg');//[0]
-new product('chair','../images/chair.jpg');//[0]
-new product('cthulhu','../images/cthulhu.jpg');//[0]
-new product('dog-duck','../images/dog-duck.jpg');//[0]
-new product('dragon','../images/dragon.jpg');//[0]
+new product('bubblegum','../images/bubblegum.jpg');
+new product('chair','../images/chair.jpg');
+new product('cthulhu','../images/cthulhu.jpg');
+new product('dog-duck','../images/dog-duck.jpg');
+new product('dragon','../images/dragon.jpg');
 
-new product('pen','../images/pen.jpg');//[0]
-new product('pet-sweep','../images/pet-sweep.jpg');//[0]
-new product('scissors','../images/scissors.jpg');//[0]
-new product('shark','../images/shark.jpg');//[0]
-new product('weep','../images/sweep.png');//[0]
+new product('pen','../images/pen.jpg');
+new product('pet-sweep','../images/pet-sweep.jpg');
+new product('scissors','../images/scissors.jpg');
+new product('shark','../images/shark.jpg');
+new product('weep','../images/sweep.png');
 
-new product('tauntaun','../images/tauntaun.jpg');//[0]
-new product('unicorn','../images/unicorn.jpg');//[0]
-new product('usb','../images/usb.gif');//[0]
-new product('water-can','../images/water-can.jpg');//[0]
-new product('glass','../images/wine-glass.jpg');//[0]
+new product('tauntaun','../images/tauntaun.jpg');
+new product('unicorn','../images/unicorn.jpg');
+new product('usb','../images/usb.gif');
+new product('water-can','../images/water-can.jpg');
+new product('glass','../images/wine-glass.jpg');//
 
 
 console.log(product.allImages);
@@ -63,9 +63,9 @@ console.log(product.allImages);
 function renderthreeImages(){
 
   
-    leftIndex = genrateRandomIndex(); //0 - 7
+    leftIndex = genrateRandomIndex(); 
     midindex =  genrateRandomIndex();
-    rightIndex = genrateRandomIndex(); // 0 - 7 
+    rightIndex = genrateRandomIndex(); 
     ////
 
   
@@ -138,25 +138,20 @@ function renderList(){
 
 }
 
-// let submit=document.getElementById('submitt');
-// submit.addEventListener('click', renderList)
-// submit.removeEventListener('click', renderList)
+// 
 
 
 
 function genrateRandomIndex(){
    return Math.floor(Math.random() * product.allImages.length); 
-                  // 0.99999999999 * 8 => 7.999999994 floor()  => 7
-                  // 0.99999999999  * 5 => 4.999999 floor => 4
-}
-//between 1-20 
+} 
 
 function chart(){
   let ctx = document.getElementById('myChart')
-  let myChart = new Chart(ctx, { // its an instance 
+  let myChart = new Chart(ctx, {  
       type: 'bar',
       data: {
-          labels: arrOfnames, // ['goat away' ,  ... 'sassy goat']
+          labels: arrOfnames, 
           datasets: [{
               label: 'Number Of votes',
               data: arrOfVotes,
