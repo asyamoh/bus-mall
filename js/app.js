@@ -1,105 +1,178 @@
 'use strict';
 
+
 let leftImageElement = document.getElementById('left-image');
-let middleImageElement = document.getElementById('middle-image');
 let rightImageElement = document.getElementById('right-image');
-let maxAttempts =25;
-let userAttemptsCounter = 0;
-let leftImageIndex;
-let middleImageIndex;
-let rightImageIndex;
+let midimageElemnt = document.getElementById('mid-image');
+let container = document.getElementById('sec-one');
 
-function Product(name, source, timesShown) {
-  this.name = name;
+
+let arrOfindex=[]
+let counts = 0;
+let maxAttempts = 25;
+let leftIndex=0; 
+let rightIndex=0;
+let midindex=0;
+let arrOfnames = [];
+
+
+function product(name,source){
+  this.name= name;
   this.source = source;
-  this.timesShown = timesShown;
-  this.timesShown = 0;
+  this.time = 0;
   this.votes = 0;
-  Product.allProducts.push(this);
+  product.allImages.push(this);
+  arrOfnames.push(this.name);
+
 }
 
-Product.allProducts = [];
-new Product('bag', 'images/bag.jpg');
-new Product('banana', 'images/banana.jpg');
-new Product('bathroom', 'images/bathroom.jpg');
-new Product('boots', 'images/boots.jpg');
-new Product('breakfast', 'images/breakfast.jpg');
-new Product('bubblegum', 'images/bubblegum.jpg');
-new Product('chair', 'images/chair.jpg');
-new Product('cthulhu', 'images/cthulhu.jpg');
-new Product('dog-duck', 'images/dog-duck.jpg');
-new Product('dragon', 'images/dragon.jpg');
-new Product('pen', 'images/pen.jpg');
-new Product('pet-sweep', 'images/pet-sweep.jpg');
-new Product('scissors', 'images/scissors.jpg');
-new Product('shark', 'images/shark.jpg');
-new Product('sweep', 'images/sweep.png');
-new Product('tauntaun', 'images/tauntaun.jpg');
-new Product('unicorn', 'images/unicorn.jpg');
-new Product('usb', 'images/usb.gif');
-new Product('water-can', 'images/water-can.jpg');
-new Product('wine-glass', 'images/wine-glass.jpg');
 
-function creatingRandomIndex() {
-  return Math.floor(Math.random() * Product.allProducts.length);
+product.allImages =[];
+
+
+
+new product('bag','../images/bag.jpg');//[0]
+new product('banana','../images/banana.jpg');//[0]
+new product('bathroom','../images/bathroom.jpg');//[0]
+new product('boots','../images/boots.jpg');//[0]
+new product('breakfast','../images/breakfast.jpg');//[0]
+
+new product('bubblegum','../images/bubblegum.jpg');//[0]
+new product('chair','../images/chair.jpg');//[0]
+new product('cthulhu','../images/cthulhu.jpg');//[0]
+new product('dog-duck','../images/dog-duck.jpg');//[0]
+new product('dragon','../images/dragon.jpg');//[0]
+
+new product('pen','../images/pen.jpg');//[0]
+new product('pet-sweep','../images/pet-sweep.jpg');//[0]
+new product('scissors','../images/scissors.jpg');//[0]
+new product('shark','../images/shark.jpg');//[0]
+new product('weep','../images/sweep.png');//[0]
+
+new product('tauntaun','../images/tauntaun.jpg');//[0]
+new product('unicorn','../images/unicorn.jpg');//[0]
+new product('usb','../images/usb.gif');//[0]
+new product('water-can','../images/water-can.jpg');//[0]
+new product('glass','../images/wine-glass.jpg');//[0]
+
+
+console.log(product.allImages);
+
+
+
+function renderthreeImages(){
+
+  
+    leftIndex = genrateRandomIndex(); //0 - 7
+    midindex =  genrateRandomIndex();
+    rightIndex = genrateRandomIndex(); // 0 - 7 
+    ////
+
+  
+    while(leftIndex === rightIndex || leftIndex === midindex || rightIndex === midindex 
+      || arrOfindex.includes(leftIndex)|| arrOfindex.includes(rightIndex)||
+       arrOfindex.includes(midindex)){
+      leftIndex = genrateRandomIndex();
+      rightIndex = genrateRandomIndex();
+      midindex =  genrateRandomIndex();
+
+    }
+    arrOfindex[0]=leftIndex;
+    arrOfindex[1]=rightIndex;
+    arrOfindex[2]=midindex;
+    console.log(arrOfindex);
+  
+
+  
+  leftImageElement.src =  product.allImages[leftIndex].source;
+  rightImageElement.src = product.allImages[rightIndex].source;
+  midimageElemnt.src = product.allImages[midindex].source
+  product.allImages[leftIndex].time++
+  product.allImages[rightIndex].time++
+  product.allImages[midindex].time++
+
+
 }
 
-creatingRandomIndex();
-console.log(creatingRandomIndex());
+renderthreeImages();
 
-function renderThreeImages() {
-  leftImageIndex = creatingRandomIndex();
-  middleImageIndex = creatingRandomIndex();
-  rightImageIndex = creatingRandomIndex();
-  while (leftImageIndex === middleImageIndex || leftImageIndex === rightImageIndex) {
-    rightImageIndex = creatingRandomIndex();
-    middleImageIndex = creatingRandomIndex();
+container.addEventListener('click',handleClicking);
+
+
+
+
+function handleClicking(event){
+  // console.log(event.target.id);
+    counts++; //0 11
+    if(maxAttempts >= counts){
+      if(event.target.id ==='left-image'){
+         product.allImages[leftIndex].votes++;
+       }else if(event.target.id ==='right-image'){
+            product.allImages[rightIndex].votes++;
+    }else if(event.target.id ==='mid-image'){
+        product.allImages[midindex].votes++;
+}
+
+
+    renderthreeImages();
+    console.log(product.allImages);
+  }else {
+    container.removeEventListener('click',handleClicking);
+
+    renderList();
+    chart()
   }
-  while (rightImageIndex === middleImageIndex) {
-    middleImageIndex = creatingRandomIndex();
-  }
-  leftImageElement.src = Product.allProducts[leftImageIndex].source;
-  Product.allProducts[leftImageIndex].timesShown++;
-  rightImageElement.src = Product.allProducts[rightImageIndex].source;
-  Product.allProducts[rightImageIndex].timesShown++;
-  middleImageElement.src = Product.allProducts[middleImageIndex].source;
-  Product.allProducts[middleImageIndex].timesShown++;
+}
 
+let arrOfVotes = [];
+let arrOfShown = [];
+function renderList(){
+  let ul = document.getElementById('unList');
+  for(let i = 0 ; i < product.allImages.length;i++){
+    arrOfVotes.push(product.allImages[i].votes);
+    arrOfShown.push(product.allImages[i].time);
+    let li = document.createElement('li');
+    ul.appendChild(li);
+    li.textContent = `${product.allImages[i].name}  has ${product.allImages[i].votes} Votes and it has appeared ${product.allImages[i].time} times`;
+  }
 
 }
 
-renderThreeImages();
+// let submit=document.getElementById('submitt');
+// submit.addEventListener('click', renderList)
+// submit.removeEventListener('click', renderList)
 
-let container = document.getElementById('container');
-container.addEventListener('click', handleUserClick);
-function handleUserClick(event) {
-  userAttemptsCounter++;
-  if (userAttemptsCounter <= maxAttempts) {
-    if (event.target.id !== 'container' && event.target.id === 'left-image') {
-      Product.allProducts[leftImageIndex].votes++;
-    }
-    else if (event.target.id !== 'container' && event.target.id === 'middle-image') {
-      Product.allProducts[middleImageIndex].votes++;
-    }
-    else {
-      Product.allProducts[rightImageIndex].votes++;
-    }
-    renderThreeImages();
-  } else {
-    container.removeEventListener('click', handleUserClick);
-    let button = document.getElementById('btn').style.display ='block';
-    button=document.getElementById('btn');
-    button.addEventListener('click', showingResults);
-    // eslint-disable-next-line no-inner-declarations
-    function showingResults(event) {
-      let list = document.getElementById('results-list');
-      for (let i = 0; i < Product.allProducts.length; i++) {
-        let productResult = document.createElement('li');
-        list.appendChild(productResult);
-        productResult.textContent = `${Product.allProducts[i].name} has ${Product.allProducts[i].votes} votes, and was seen ${Product.allProducts[i].timesShown} times.`;
-        button.removeEventListener('click', showingResults);
+
+
+function genrateRandomIndex(){
+   return Math.floor(Math.random() * product.allImages.length); 
+                  // 0.99999999999 * 8 => 7.999999994 floor()  => 7
+                  // 0.99999999999  * 5 => 4.999999 floor => 4
+}
+//between 1-20 
+
+function chart(){
+  let ctx = document.getElementById('myChart')
+  let myChart = new Chart(ctx, { // its an instance 
+      type: 'bar',
+      data: {
+          labels: arrOfnames, // ['goat away' ,  ... 'sassy goat']
+          datasets: [{
+              label: 'Number Of votes',
+              data: arrOfVotes,
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+              ],
+              borderWidth: 1
+          },{
+            label:'# of Shown',
+            data: arrOfShown,
+            backgroundColor:[
+              "rgb(192,192,192)"
+            ],
+            borderWidth: 1
+          }]
       }
-    }
-  }
+  })
 
-}
+  }
