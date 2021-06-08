@@ -1,5 +1,35 @@
-header h2{
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&family=Stint+Ultra+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&display=swap');
+
+header h1{
 color: gray;
 background-color: rgb(218, 172, 195);
+text-align: center;
+font-family: 'Lobster', cursive;
+
 }
 
+#sec-one{
+background-color: rgb(218, 172, 195);
+}
+#sec-one img{
+    display: inline;
+    margin-left: 5%;
+    border-style: solid;
+   
+}
+
+ul{
+    border-style: dotted;
+    
+}
+ li{
+    font-family: 'Roboto Condensed', sans-serif;
+    word-spacing: 5%;
+    color: powderblue;
+    background-color: grey;
+ }
+ button{
+     color: powderblue;
+     border-style: solid;
+ }
