@@ -7,20 +7,22 @@ let midimageElemnt = document.getElementById('mid-image');
 let container = document.getElementById('sec-one');
 
 
-let arrOfindex=[]
+// let arrOfindex=[]
 let counts = 0;
 let maxAttempts = 25;
 let leftIndex=0; 
 let rightIndex=0;
 let midindex=0;
 let arrOfnames = [];
-
+let votes=[];
+// let productsArr=[];
 
 function product(name,source){
   this.name= name;
   this.source = source;
   this.time = 0;
   this.votes = 0;
+ 
   product.allImages.push(this);
   arrOfnames.push(this.name);
 
@@ -58,6 +60,10 @@ new product('glass','../images/wine-glass.jpg');//
 
 console.log(product.allImages);
 
+// function genrateRandomIndex(){
+//   return Math.floor(Math.random()* productsArr.length);
+// }
+
 
 
 function renderthreeImages(){
@@ -65,7 +71,8 @@ function renderthreeImages(){
   
     leftIndex = genrateRandomIndex(); 
     midindex =  genrateRandomIndex();
-    rightIndex = genrateRandomIndex(); 
+    rightIndex = genrateRandomIndex();
+    let arrOfindex=[] 
     ////
 
   
@@ -118,6 +125,8 @@ function handleClicking(event){
     console.log(product.allImages);
   }else {
     container.removeEventListener('click',handleClicking);
+    ////
+    saveToLocalStorage();
 
     renderList();
     chart()
@@ -169,5 +178,28 @@ function chart(){
           }]
       }
   })
+}
+  
+//local 
 
-  }
+function saveToLocalStorage (){
+  let arrStr = JSON.stringify(product.allImages);
+  localStorage.setItem('allobjects' , arrStr);
+}
+
+
+function gettingFromLocal (){
+  let datashown = localStorage.getItem('allobjects');
+  let datashownback = JSON.parse(datashown);
+  let votes = JSON.parse(datashown);
+  console.log(datashownback);
+
+  if(datashownback !== null){
+    product.allImages= datashownback;
+    chart();
+    renderList();
+}
+
+}
+gettingFromLocal();
+
