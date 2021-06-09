@@ -15,6 +15,7 @@ let rightIndex=0;
 let midindex=0;
 let arrOfnames = [];
 let votes=[];
+let arrOfindex=[] ;
 // let productsArr=[];
 
 function product(name,source){
@@ -72,7 +73,7 @@ function renderthreeImages(){
     leftIndex = genrateRandomIndex(); 
     midindex =  genrateRandomIndex();
     rightIndex = genrateRandomIndex();
-    let arrOfindex=[] 
+    
     ////
 
   
@@ -112,6 +113,7 @@ function handleClicking(event){
   // console.log(event.target.id);
     counts++; //0 11
     if(maxAttempts >= counts){
+      saveToLocalStorage();
       if(event.target.id ==='left-image'){
          product.allImages[leftIndex].votes++;
        }else if(event.target.id ==='right-image'){
@@ -126,8 +128,7 @@ function handleClicking(event){
   }else {
     container.removeEventListener('click',handleClicking);
     ////
-    saveToLocalStorage();
-
+    
     renderList();
     chart()
   }
@@ -196,7 +197,7 @@ function gettingFromLocal (){
 
   if(datashownback !== null){
     product.allImages= datashownback;
-    chart();
+    // chart();
     renderList();
 }
 
