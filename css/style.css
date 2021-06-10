@@ -13,7 +13,7 @@ font-family: 'Lobster', cursive;
 background-color: rgb(218, 172, 195);
 }
 #sec-one img{
-    display: inline;
+   
     margin-left: 5%;
     border-style: solid;
    
@@ -33,3 +33,4 @@ ul{
      color: powderblue;
      border-style: solid;
  }
+

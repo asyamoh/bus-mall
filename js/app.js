@@ -15,9 +15,10 @@ let rightIndex=0;
 let midindex=0;
 let arrOfnames = [];
 let votes=[];
+let arrOfindex=[] ;
 // let productsArr=[];
 
-function product(name,source){
+function product(name,source){ 
   this.name= name;
   this.source = source;
   this.time = 0;
@@ -31,7 +32,7 @@ function product(name,source){
 
 product.allImages =[];
 
-
+//creating the instances 
 
 new product('bag','../images/bag.jpg');
 new product('banana','../images/banana.jpg');
@@ -65,17 +66,17 @@ console.log(product.allImages);
 // }
 
 
-
+// function to generate the three imgs
 function renderthreeImages(){
 
   
     leftIndex = genrateRandomIndex(); 
     midindex =  genrateRandomIndex();
     rightIndex = genrateRandomIndex();
-    let arrOfindex=[] 
+    
     ////
 
-  
+  //while with includes to prevent shows in imgs in  a row
     while(leftIndex === rightIndex || leftIndex === midindex || rightIndex === midindex 
       || arrOfindex.includes(leftIndex)|| arrOfindex.includes(rightIndex)||
        arrOfindex.includes(midindex)){
@@ -89,7 +90,7 @@ function renderthreeImages(){
     arrOfindex[2]=midindex;
     console.log(arrOfindex);
   
-
+  
   
   leftImageElement.src =  product.allImages[leftIndex].source;
   rightImageElement.src = product.allImages[rightIndex].source;
@@ -112,6 +113,7 @@ function handleClicking(event){
   // console.log(event.target.id);
     counts++; //0 11
     if(maxAttempts >= counts){
+      saveToLocalStorage();
       if(event.target.id ==='left-image'){
          product.allImages[leftIndex].votes++;
        }else if(event.target.id ==='right-image'){
@@ -126,8 +128,7 @@ function handleClicking(event){
   }else {
     container.removeEventListener('click',handleClicking);
     ////
-    saveToLocalStorage();
-
+    
     renderList();
     chart()
   }
@@ -150,7 +151,7 @@ function renderList(){
 // 
 
 
-
+/// this function to make the random imgs generated.
 function genrateRandomIndex(){
    return Math.floor(Math.random() * product.allImages.length); 
 } 
@@ -180,7 +181,7 @@ function chart(){
   })
 }
   
-//local 
+//local storage how to create?
 
 function saveToLocalStorage (){
   let arrStr = JSON.stringify(product.allImages);
@@ -196,7 +197,7 @@ function gettingFromLocal (){
 
   if(datashownback !== null){
     product.allImages= datashownback;
-    chart();
+    // chart();
     renderList();
 }
 
